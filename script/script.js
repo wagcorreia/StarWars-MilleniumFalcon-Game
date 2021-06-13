@@ -9,7 +9,7 @@ window.onload = function () {
   
     function startGame() {
       myGameArea.start();
-      background = new Background("./images/BNG-ASTEROIDES.png");
+      background = new Background("./images/bgStarWars.png");
       player = new Component(80, 50, "./images/milleniumFalcon.png", 100, 110, "image");
       myGameArea.myObstacles = [];
       mySound = new sound("./sounds/arcade-video-game-explosion.wav")
