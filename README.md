@@ -1,5 +1,5 @@
-# A_jornada_do_heroi
-Projeto a Jornada do Herói
-Intro
+# StarWars-MilleniumFalcon-Game
 
-Inicio da Jornada
+Projeto game: StarWars Millenium Falcon the Game
+
+Update: 13/06/2021 - Mudança de projeto e game.
