@@ -39,7 +39,7 @@ window.onload = function () {
       
       score: function () {
         points = Math.floor(this.frames / 5);
-        this.context.font = "38px courier";
+        this.context.font = "38px Courier New";
         this.context.fillStyle = "white";
         this.context.fillText("Score: " + points, 20, 50);
       },
@@ -55,20 +55,22 @@ window.onload = function () {
         this.restartGame();
       },
       drawFinalPoints: function () {
+        
         this.context.fillStyle = "black";
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        this.context.font = "38px courier center";
+        this.context.font = "regular 38px Press Start 2P";
         this.context.fillStyle = "red";
         this.context.fillText("Game Over!", 350, 230);
         this.context.fillStyle = "white";
-        this.context.fillText("Your final score: " + points, 300, 280);
+        this.context.fillText("Your final score: " + points, 250, 280);
+        
       },
       
       restartGame: function () {
         setTimeout(function () {
           document.getElementById("game-board").style.display = "none";
           document.getElementById("title").style.display = "block";
-        }, 1500);
+        }, 1600);
       },
     };
     
@@ -188,22 +190,22 @@ window.onload = function () {
     function createObstacle() {
      
       x = myGameArea.canvas.width;
-      y = myGameArea.canvas.height;
-      height = Math.floor(Math.random() * (200 - 20 + 1) + 20);
-      gap = Math.floor(Math.random() * (200 - 100 + 1) + 100);
+      y = myGameArea.canvas.height - 50;
+      // height = Math.floor(Math.random() * (200 - 20 + 1) + 20);
+      // gap = Math.floor(Math.random() * (200 - 100 + 1) + 100);
       
       myGameArea.myObstacles.push(
-        new Component(70, height, "./images/Stalactite_top.png", x, 0)
+        new Component(50, 50, "./images/meteor.png", x, Math.floor(Math.random() * y))
       );
-      myGameArea.myObstacles.push(
-        new Component(
-          70,
-          y - height - gap,
-          "./images/Stalagmite_bottom.png",
-          x,
-          height + gap
-        )
-      );
+      // myGameArea.myObstacles.push(
+      //   new Component(
+      //     70,
+      //     y - height - gap,
+      //     "./images/Stalagmite_bottom.png",
+      //     x,
+      //     height + gap
+      //   )
+      // );
     }
     function updateGameArea() {
     for (i = 0; i < myGameArea.myObstacles.length; i++) {
@@ -252,6 +254,21 @@ window.onload = function () {
         player.userPull = 0;
       }
     };
+
+    document.onmousedown = function (e){
+      player.userPull = 0.3;
+      
+    };
+
+    document.onmouseup = function (e){
+       player.userPull = 0;
+       
+     };
+
+    // document.player.onclick = function (e) {
+    //   e.player.userPull = 0.3;
+    // };
+
     function sound(src) {
         this.sound = document.createElement("audio");
         this.sound.src = src;
@@ -259,9 +276,10 @@ window.onload = function () {
         this.sound.setAttribute("controls", "none");
         this.sound.style.display = "none";
         document.body.appendChild(this.sound);
+        this.sound.volume = 0.1;
         this.play = function(){
             this.sound.play();
-        }
+           }
         this.stop = function(){
             this.sound.pause();
         }    
