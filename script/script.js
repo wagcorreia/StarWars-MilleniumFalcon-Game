@@ -143,8 +143,7 @@ window.onload = function () {
       this.speedY = 0;
       this.userPull = 0;
       this.update = function () {
-        
-        myGameArea.context.drawImage(
+          myGameArea.context.drawImage(
           this.image,
           this.x,
           this.y,
@@ -182,6 +181,7 @@ window.onload = function () {
         
       this.outOfCanvas = function (obstacle) {
         return player.bottom() > myGameArea.canvas.height || player.top() < 0;
+        
       };
     }
   
@@ -211,6 +211,7 @@ window.onload = function () {
             mySound.play();
             myMusic.stop();
             myGameArea.stop();
+            myMusic.stop();
           return;
         }
       }
@@ -233,6 +234,7 @@ window.onload = function () {
         
       if (player.outOfCanvas()) {
         myGameArea.stop();
+        myMusic.stop();
         return;
       }
         
