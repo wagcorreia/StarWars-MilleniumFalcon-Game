@@ -9,7 +9,7 @@ window.onload = function () {
 
   function startGame() {
     myGameArea.start();
-    background = new Background("./images/bgStarWars.png");
+    background = new Background("./images/bng-starwars-universe.png");
     player = new Component(100, 70, "./images/mFalconnew.png", 100, 110, "image");
     myGameArea.myObstacles = [];
     mySound = new sound("./sounds/arcade-video-game-explosion.wav")
@@ -70,7 +70,7 @@ window.onload = function () {
       setTimeout(function () {
         document.getElementById("game-board").style.display = "none";
         document.getElementById("title").style.display = "block";
-      }, 1600);
+      }, 2000);
     },
   };
   
@@ -262,12 +262,12 @@ window.onload = function () {
 
   document.onmousedown = function (e){
     player.userPull = 0.3;
-    
+    player.image.src = "./images/mFalconnew2.png"
   };
 
   document.onmouseup = function (e){
      player.userPull = 0;
-     
+     player.image.src = "./images/mFalconnew.png"
    };
 
   // document.player.onclick = function (e) {

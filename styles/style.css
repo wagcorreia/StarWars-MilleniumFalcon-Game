@@ -1,18 +1,16 @@
 body {
-    padding: 0 15%;
+    padding: 0 10%;
     text-align: center;
   }
   
   body h1 {
     font-family: 'Press Start 2P', cursive;
-    -webkit-font-smoothing : none;
     font-size: 30px;
     text-transform: uppercase;
   }
   
   body button {
     font-family: 'Press Start 2P', cursive;
-    -webkit-font-smoothing : none;
     font-size: 20px;
     background-color: black;
     color: #fff;
@@ -27,8 +25,20 @@ body {
     display: none;
     padding-top: 12vh; 
   }
+
+  #instructions{
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+  
+  #Corp{
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    padding-top: 12vh;
+  }
   
   #title {
-    padding: 20% 0;
+    padding: 10% 0;
   }
   
