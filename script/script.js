@@ -270,6 +270,17 @@ window.onload = function () {
      player.image.src = "./images/mFalconnew.png"
    };
 
+   document.ontouchstart = function (e){
+    player.userPull = 0.3;
+    player.image.src = "./images/mFalconnew2.png"
+  };
+
+  document.ontouchend = function (e){
+     player.userPull = 0;
+     player.image.src = "./images/mFalconnew.png"
+   };
+
+
   // document.player.onclick = function (e) {
   //   e.player.userPull = 0.3;
   // };
