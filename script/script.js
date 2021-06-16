@@ -8,22 +8,18 @@ window.onload = function () {
   
     startGame();
   };
-  
-  
-  
+    
   function startGame() {
+    
+    //criando uma array vazia de obstáculos para o jogo para ser contra o player
+    myGameArea.myObstacles = [];
+    myGameArea.points = 0;
     //iniciamos o jogo
     myGameArea.start();
 
     //imagem de plano de fundo no canvas
     background = new Background("./images/bng-starwars-universe.png");
-
-    //criando um novo componente para o player
-    
-
-    //criando uma array vazia de obstáculos para o jogo para ser contra o player
-    myGameArea.myObstacles = [];
-
+        
     //criando musica de fundo e sound effect de colisão com os obstáculos
     mySound = new sound("./sounds/arcade-video-game-explosion.wav")
     myMusic = new sound("./sounds/Star Wars 8-Bit-full.mp3");
@@ -31,7 +27,6 @@ window.onload = function () {
     //Inicia música
     myMusic.play();
   }
-  
   
   //criando o fundo de tela infinito
   function Background(source) {
@@ -96,7 +91,7 @@ window.onload = function () {
       };
     }
   }
-
+//criando um novo componente para o player
 const player = new Component(100, 70, "./images/mFalconnew.png", 100, 110, "image");
 
 //Criando o canvas no html e atributos como gravidade e desenhar na game-board as dimensões da tela
@@ -109,7 +104,8 @@ const myGameArea = {
   drawCanvas: function () {
 
     //aqui o canvas tem de largura 70% ou *0.30
-    this.canvas.width = screen.width - screen.width * 0.3;
+    this.canvas.width = 960
+    //screen.width - screen.width * 0.3;
     this.canvas.height = 500;
     this.context = this.canvas.getContext("2d");
 
@@ -119,6 +115,9 @@ const myGameArea = {
 
   //aqui atualizamos a tela para cada frame, repetindo em loop o updateGameArea 
   start: function () {
+    player.x = 100;
+    player.y = 110;
+    player.userPull = 0;
     this.drawCanvas();
     this.reqAnimation = window.requestAnimationFrame(updateGameArea);
   },
@@ -164,11 +163,12 @@ const myGameArea = {
       document.getElementById("game-board").style.display = "none";
       document.getElementById("title").style.display = "block";
       this.points = 0;
+      window.location.reload()
     }, 2000);
   },
 }; 
 
-  //classe Component criada para fazer objetos na tela, tanto para o jogador como os obstáculos
+  //função Component criada para fazer objetos na tela, tanto para o jogador como os obstáculos
   function Component(width, height, image, x, y) {
     
       this.image = new Image();
@@ -196,7 +196,7 @@ const myGameArea = {
         );
       };
 
-      //incrementar posição atual do player e obstáculos de acordo a veolicidade atual
+      //incrementar posição atual do player e obstáculos de acordo a velocidade atual
       this.newPos = function () {
         this.x += this.speedX;
 
@@ -240,8 +240,7 @@ const myGameArea = {
    
     x = myGameArea.canvas.width;
     y = myGameArea.canvas.height - 50;
-    // height = Math.floor(Math.random() * (200 - 20 + 1) + 20);
-    // gap = Math.floor(Math.random() * (200 - 100 + 1) + 100);
+    
     
     myGameArea.myObstacles.push(
       new Component(50, 50, "./images/meteor4.png", x, Math.floor(Math.random() * y))
@@ -250,29 +249,10 @@ const myGameArea = {
     myGameArea.myObstacles.push(
       new Component(50, 50, "./images/meteor2.png", x, Math.floor(Math.random() * y))
     );
-
-    
-    // myGameArea.myObstacles.push(
-    //   new Component(
-    //     70,
-    //     y - height - gap,
-    //     "./images/Stalagmite_bottom.png",
-    //     x,
-    //     height + gap
-    //   )
-    // );
+  
   }
   function updateGameArea() {
-  for (i = 0; i < myGameArea.myObstacles.length; i++) {
-      if (player.crashWith(myGameArea.myObstacles[i])) {
-          mySound.play();
-          myMusic.stop();
-          myGameArea.stop();
-          myMusic.stop();
-        return;
-      }
-    }
-      
+         
     if (myGameArea.frames % 120 === 0) {
       createObstacle();
     }
@@ -288,25 +268,37 @@ const myGameArea = {
     player.newPos();
     player.update();
     myGameArea.score();
-      
+
+    myGameArea.reqAnimation = window.requestAnimationFrame(updateGameArea);
+    for (i = 0; i < myGameArea.myObstacles.length; i++) {
+      if (player.crashWith(myGameArea.myObstacles[i])) {
+          mySound.play();
+          myMusic.stop();
+          myGameArea.stop();
+      return;
+      }
+    }
+    
     if (player.outOfCanvas()) {
-      myGameArea.stop();
       myMusic.stop();
+      myGameArea.stop();
       return;
     }
       
-    myGameArea.reqAnimation = window.requestAnimationFrame(updateGameArea);
+    
   }
     // Criando funcionamento teclas e clicks da nave
   document.onkeydown = function (e) {
     if (e.keyCode == 32) {
       player.userPull = 0.3;
+      player.image.src = "./images/mFalconnew2.png"
     }
   };
 
   document.onkeyup = function (e) {
     if (e.keyCode == 32) {
       player.userPull = 0;
+      player.image.src = "./images/mFalconnew.png"
     }
   };
 
