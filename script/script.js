@@ -8,7 +8,9 @@ window.onload = function () {
   
     startGame();
   };
-
+  
+  
+  
   function startGame() {
     //iniciamos o jogo
     myGameArea.start();
@@ -17,7 +19,7 @@ window.onload = function () {
     background = new Background("./images/bng-starwars-universe.png");
 
     //criando um novo componente para o player
-    player = new Component(100, 70, "./images/mFalconnew.png", 100, 110, "image");
+    
 
     //criando uma array vazia de obstáculos para o jogo para ser contra o player
     myGameArea.myObstacles = [];
@@ -29,74 +31,7 @@ window.onload = function () {
     //Inicia música
     myMusic.play();
   }
-  //Criando o canvas no html e atributos como gravidade e desenhar na game-board as dimensões da tela
-  const myGameArea = {
-    canvas: document.createElement("canvas"),
-    myObstacles: [],
-    frames: 0,
-    gravity: 0.1,
-    points: 0,
-    drawCanvas: function () {
-
-      //aqui o canvas tem de largura 70% ou *0.30
-      this.canvas.width = screen.width - screen.width * 0.3;
-      this.canvas.height = 500;
-      this.context = this.canvas.getContext("2d");
-
-      //criando o canvas para adicionar ele na div do id "game-board"
-      document.getElementById("game-board").append(this.canvas);
-    },
-
-    //aqui atualizamos a tela para cada frame, repetindo em loop o updateGameArea 
-    start: function () {
-      this.drawCanvas();
-      this.reqAnimation = window.requestAnimationFrame(updateGameArea);
-    },
-    
-    clear: function () {
-      this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    },
-    
-    //aqui se cria o Score pontuação que conta a cada 5 frames
-    score: function () {
-      this.points = Math.floor(this.frames / 5);
-      this.context.font = "38px Courier New";
-      this.context.fillStyle = "white";
-      this.context.fillText("SCORE: " + this.points, 20, 50);
-    },
-    
-    //encerrar loop da animação e chamar GameOver
-    stop: function () {
-      cancelAnimationFrame(this.reqAnimation);
-      this.gameOver();
-    },
-    
-    //Limpar e chamar tela de Game Over, reiniciando o jogo em seguida
-    gameOver: function () {
-      this.clear();
-      this.drawFinalPoints();
-      this.restartGame();
-    },
-    drawFinalPoints: function () {
-      
-      this.context.fillStyle = "black";
-      this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-      this.context.font = "regular 38px Press Start 2P";
-      this.context.fillStyle = "red";
-      this.context.fillText("GAME OVER!", 350, 230);
-      this.context.fillStyle = "white";
-      this.context.fillText("Your final score: " + this.points, 250, 280);
-      
-    },
-    //Chamando novamente a tela de star game depois de 2 segundos
-    restartGame: function () {
-      setTimeout(function () {
-        document.getElementById("game-board").style.display = "none";
-        document.getElementById("title").style.display = "block";
-        this.points = 0;
-      }, 2000);
-    },
-  };
+  
   
   //criando o fundo de tela infinito
   function Background(source) {
@@ -161,6 +96,78 @@ window.onload = function () {
       };
     }
   }
+
+const player = new Component(100, 70, "./images/mFalconnew.png", 100, 110, "image");
+
+//Criando o canvas no html e atributos como gravidade e desenhar na game-board as dimensões da tela
+const myGameArea = {
+  canvas: document.createElement("canvas"),
+  myObstacles: [],
+  frames: 0,
+  gravity: 0.1,
+  points: 0,
+  drawCanvas: function () {
+
+    //aqui o canvas tem de largura 70% ou *0.30
+    this.canvas.width = screen.width - screen.width * 0.3;
+    this.canvas.height = 500;
+    this.context = this.canvas.getContext("2d");
+
+    //criando o canvas para adicionar ele na div do id "game-board"
+    document.getElementById("game-board").append(this.canvas);
+  },
+
+  //aqui atualizamos a tela para cada frame, repetindo em loop o updateGameArea 
+  start: function () {
+    this.drawCanvas();
+    this.reqAnimation = window.requestAnimationFrame(updateGameArea);
+  },
+  
+  clear: function () {
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  },
+  
+  //aqui se cria o Score pontuação que conta a cada 5 frames
+  score: function () {
+    this.points = Math.floor(this.frames / 5);
+    this.context.font = "38px Courier New";
+    this.context.fillStyle = "white";
+    this.context.fillText("SCORE: " + this.points, 20, 50);
+  },
+  
+  //encerrar loop da animação e chamar GameOver
+  stop: function () {
+    cancelAnimationFrame(this.reqAnimation);
+    this.gameOver();
+  },
+  
+  //Limpar e chamar tela de Game Over, reiniciando o jogo em seguida
+  gameOver: function () {
+    this.clear();
+    this.drawFinalPoints();
+    this.restartGame();
+  },
+  drawFinalPoints: function () {
+    
+    this.context.fillStyle = "black";
+    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    this.context.font = "regular 38px Press Start 2P";
+    this.context.fillStyle = "red";
+    this.context.fillText("GAME OVER!", 350, 230);
+    this.context.fillStyle = "white";
+    this.context.fillText("Your final score: " + this.points, 250, 280);
+    
+  },
+  //Chamando novamente a tela de star game depois de 2 segundos
+  restartGame: function () {
+    setTimeout(function () {
+      document.getElementById("game-board").style.display = "none";
+      document.getElementById("title").style.display = "block";
+      this.points = 0;
+    }, 2000);
+  },
+}; 
+
   //classe Component criada para fazer objetos na tela, tanto para o jogador como os obstáculos
   function Component(width, height, image, x, y) {
     
