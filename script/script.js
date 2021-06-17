@@ -284,8 +284,7 @@ const myGameArea = {
       myGameArea.stop();
       return;
     }
-      
-    
+          
   }
     // Criando funcionamento teclas e clicks da nave
   document.onkeydown = function (e) {
@@ -326,7 +325,7 @@ const myGameArea = {
   // document.player.onclick = function (e) {
   //   e.player.userPull = 0.3;
   // };
-   // Criando Classe de som e colocando função para ativar som elementos audio
+   // Criando função de som e colocando função para ativar som elementos audio
    function sound(src) {
     
       //cria elemento no html de som na tag "audio"
